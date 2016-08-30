@@ -7,10 +7,8 @@ import re
 import time
 import base64
 import json
-import shutil
 import os
 import sys
-import argparse
 
 """
 yunpan login
@@ -27,7 +25,6 @@ in fact, there are only two cookie item matters, i have tried , the [BAIDUID] an
 INDEX_URL = 'http://pan.baidu.com/'
 LOGIN_URL = 'https://passport.baidu.com/v2/api/?login'
 HOME_URL = 'http://pan.baidu.com/disk/home'
-
 
 session = requests.Session()
 token_pattern = re.compile(r'"token"\s:\s"(.*?)"')
@@ -93,6 +90,7 @@ class YunDisk(object):
                 k = p[((p[i] + p[u]) % 256)]
                 o += chr(ord(r[q]) ^ k)
             return base64.b64encode(o)
+
         self.key_params = {'sign': sign2(sign3, sign1), 'timestamp': timestamp}
 
     def __pre_login(self):
@@ -182,7 +180,7 @@ class YunDisk(object):
             # print conten.content
             print content.status_code
             res_headers = content.headers
-            file_name = re.search(r'"(.*?)"',content.headers['content-disposition']).group(1)
+            file_name = re.search(r'"(.*?)"', content.headers['content-disposition']).group(1)
             file_size = content.headers['content-length']
             print file_name
             print file_size
@@ -205,9 +203,9 @@ class YunDisk(object):
                 print '\n'
                 print 'download success------------------------!'
 
-            # if content.status_code == 200:
-            #     with open('python.pdf', 'wb') as f:
-            #         shutil.copyfileobj(content.raw, f)
+                # if content.status_code == 200:
+                #     with open('python.pdf', 'wb') as f:
+                #         shutil.copyfileobj(content.raw, f)
 
 
 def share_download(url):
@@ -241,17 +239,15 @@ def share_download(url):
         'product': 'share',
         'uk': share_uk,
         'primaryid': share_id,
-        'fid_list': '['+file_id+']'
+        'fid_list': '[' + file_id + ']'
     }
     download_res = session.post('http://pan.baidu.com/api/sharedownload', params=params, data=data)
     print download_res.content
 
-if __name__ == '__main__':
-    # username = raw_input("please input username:\n")
-    # password = raw_input("please input password:\n")
 
-    username = 'xxxxxx'
-    password = 'xxxxxx'
+if __name__ == '__main__':
+    username = raw_input("please input username:\n")
+    password = raw_input("please input password:\n")
     yundisk = YunDisk(username, password)
     yundisk.login()
     # yundisk.search('python')
