@@ -19,7 +19,8 @@ if __name__ == '__main__':
     }
 
     session = requests.Session()
-    first_res = session.post('https://open.e.189.cn/api/common/loginSubmit.do', data=data, allow_redirects=False).content
+    first_res = session.post('https://open.e.189.cn/api/common/loginSubmit.do', data=data,
+                             allow_redirects=False).content
     # print first_res.headers
     second_url = re.search(r'href="(.*)"', first_res).group(1)
     # print second_url
@@ -31,4 +32,3 @@ if __name__ == '__main__':
 
     final_res = session.get('http://hermesw034.mail.21cn.com/webmail/signOn.do').content
     print final_res
-

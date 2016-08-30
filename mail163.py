@@ -21,14 +21,13 @@ if __name__ == '__main__':
         'hid': '10010102'
     }
 
-
     login_data = {
         'username': 'xxxxxxx',
         'savelogin': 0,
         'url2': 'http://mail.126.com/errorpage/error126.htm',
         'password': 'xxxxxxx'
     }
-    first_res = session.post('https://mail.126.com/entry/cgi/ntesdoor', params=login_params,data=login_data)
+    first_res = session.post('https://mail.126.com/entry/cgi/ntesdoor', params=login_params, data=login_data)
     # print first_res.content
     second_url = re.search(r'href\s=\s"(.*?)"', first_res.content).group(1)
     print second_url
@@ -61,5 +60,6 @@ if __name__ == '__main__':
         'markRead': 'true'
     }
 
-    download_res = session.post('https://ssl.mail.126.com/jy6/xhr/msg/read.do', params=search_params, data=download_data)
+    download_res = session.post('https://ssl.mail.126.com/jy6/xhr/msg/read.do', params=search_params,
+                                data=download_data)
     print download_res.content

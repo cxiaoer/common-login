@@ -27,7 +27,6 @@ INDEX_URL = 'http://pan.baidu.com/'
 LOGIN_URL = 'https://passport.baidu.com/v2/api/?login'
 HOME_URL = 'http://pan.baidu.com/disk/home'
 
-
 session = requests.Session()
 token_pattern = re.compile(r'"token"\s:\s"(.*?)"')
 bdstoken_pattern = re.compile(r'yunData.MYBDSTOKEN\s=\s"(.*?)";')
@@ -92,6 +91,7 @@ class YunDisk(object):
                 k = p[((p[i] + p[u]) % 256)]
                 o += chr(ord(r[q]) ^ k)
             return base64.b64encode(o)
+
         self.key_params = {'sign': sign2(sign3, sign1), 'timestamp': timestamp}
 
     def __pre_login(self):
@@ -181,7 +181,7 @@ class YunDisk(object):
             # print conten.content
             print content.status_code
             res_headers = content.headers
-            file_name = re.search(r'"(.*?)"',content.headers['content-disposition']).group(1)
+            file_name = re.search(r'"(.*?)"', content.headers['content-disposition']).group(1)
             file_size = content.headers['content-length']
             print file_name
             print file_size
@@ -202,12 +202,12 @@ class YunDisk(object):
                             sys.stdout.write('#' + '\b\b')
                             sys.stdout.flush()
                 print '\n'
-                    # print i
+                # print i
                 print 'download success------------------------!'
 
-            # if content.status_code == 200:
-            #     with open('python.pdf', 'wb') as f:
-            #         shutil.copyfileobj(content.raw, f)
+                # if content.status_code == 200:
+                #     with open('python.pdf', 'wb') as f:
+                #         shutil.copyfileobj(content.raw, f)
 
 
 def share_download(url):
@@ -241,10 +241,11 @@ def share_download(url):
         'product': 'share',
         'uk': share_uk,
         'primaryid': share_id,
-        'fid_list': '['+file_id+']'
+        'fid_list': '[' + file_id + ']'
     }
     download_res = session.post('http://pan.baidu.com/api/sharedownload', params=params, data=data)
     print download_res.content
+
 
 if __name__ == '__main__':
     # username = raw_input("please input username:\n")

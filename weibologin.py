@@ -65,7 +65,6 @@ class Weibo(object):
             print data
 
 
-
 if __name__ == '__main__':
     # username = raw_input("请输入你的微博用户名:\n")
     # password = raw_input("请输入你的微博密码:\n")

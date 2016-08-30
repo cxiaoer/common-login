@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import os
 import socket
 
-
 """
 知乎的登陆关键是访问首页时，通过页面拿到登陆时要用的_xsrf参数
 """
@@ -29,6 +28,8 @@ data = {
 data['_xsrf'] = BeautifulSoup(session.get(zhihu_index).content).find(type='hidden')['value']
 print data
 html = session.post(login_url, data, headers=header_info)
+
+
 # print html.content
 
 # get img source url
@@ -89,18 +90,9 @@ def search(title):
     #     f.write(_search_result.content)
     # print _search_result.content
 
-    #get the title
+    # get the title
     for item in BeautifulSoup(_search_result.content).find_all('a', class_='question-link'):
         print item
 
 
 search('爬虫')
-
-
-
-
-
-
-
-
-

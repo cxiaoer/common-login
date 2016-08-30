@@ -10,6 +10,8 @@ session = requests.Session()
 header = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:36.0) Gecko/20100101 Firefox/36.0'
 }
+
+
 class ZhiLian(object):
     def __init__(self, username, password):
         self.username = username
@@ -28,12 +30,12 @@ class ZhiLian(object):
             'x': 22,
             'y': 12
         }
-        #包含自动重定向结果
+        # 包含自动重定向结果
         middle_res_content = session.post(middle_url, data=data, headers=header).content
         home = open('home_zhilian.html', 'wb')
         home.write(middle_res_content)
 
-    #默认搜索杭州的
+    # 默认搜索杭州的
     def search(self, keyword):
         data = {
             'keywordtype': 2,
@@ -41,7 +43,8 @@ class ZhiLian(object):
             'jobarea': '080200',
             'keyword': keyword
         }
-        search_res = session.post('http://search.51job.com/jobsearch/search.html?fromJs=1&lang=c', data=data, headers=header).content
+        search_res = session.post('http://search.51job.com/jobsearch/search.html?fromJs=1&lang=c', data=data,
+                                  headers=header).content
         # print search_res
         # search_file = open('search_res.html', 'wb')
         # search_file.write(search_res)
